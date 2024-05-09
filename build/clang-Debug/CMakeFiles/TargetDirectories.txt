@@ -1,8 +1,0 @@
-C:/Users/GreentestR04/myQtsrc/spline/build/clang-Debug/CMakeFiles/spline.dir
-C:/Users/GreentestR04/myQtsrc/spline/build/clang-Debug/CMakeFiles/edit_cache.dir
-C:/Users/GreentestR04/myQtsrc/spline/build/clang-Debug/CMakeFiles/rebuild_cache.dir
-C:/Users/GreentestR04/myQtsrc/spline/build/clang-Debug/CMakeFiles/list_install_components.dir
-C:/Users/GreentestR04/myQtsrc/spline/build/clang-Debug/CMakeFiles/install.dir
-C:/Users/GreentestR04/myQtsrc/spline/build/clang-Debug/CMakeFiles/install/local.dir
-C:/Users/GreentestR04/myQtsrc/spline/build/clang-Debug/CMakeFiles/spline_autogen_timestamp_deps.dir
-C:/Users/GreentestR04/myQtsrc/spline/build/clang-Debug/CMakeFiles/spline_autogen.dir
