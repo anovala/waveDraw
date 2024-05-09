@@ -7,6 +7,7 @@
 #include <QTimer>
 #include <QPainterPath>
 #include <QPainter>
+#include <QValueAxis>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -38,6 +39,10 @@ struct ItemDatas
     bool isEmpty() const { return durationPoints.isEmpty() || timePoints.isEmpty();}
 };
 
+enum lineType {
+    LINE,
+    SPLINE
+};
 
 class Widget : public QWidget
 {
@@ -51,9 +56,12 @@ public:
 private:
     QList<QList<QPointF>> itemDatas();
     void init();
-
+    void configTimer();
+/*
 protected:
     void paintEvent(QPaintEvent *e) override;
+*/
+
 private:
 
     QChart *m_chart;
@@ -64,15 +72,25 @@ private:
 
     double m_time;
     int m_pointSize;
-    QTimer m_timer;
-    // for progress
     QPainterPath m_path;
+    QValueAxis *m_xAxis;
+    QValueAxis *m_yAxis;
 
     //helper member
-    QList<QList<QPointF>> m_spLines;
+    //QList<QList<QPointF>> m_spLines;
     double ua;
     double ur;
     double fa;
+
+    //var for draw process
+    QList<std::pair<lineType,QList<QPointF>>>::Iterator m_currentLineIter;
+    QList<std::pair<lineType,QList<QPointF>>> m_processPoints;
+    int m_currentPointIndex;
+    QTimer m_timer;
+    QList<QXYSeries*> m_processSeries;
+
+    void resetIter();
+
 private slots:
     void onTimeOut();
 

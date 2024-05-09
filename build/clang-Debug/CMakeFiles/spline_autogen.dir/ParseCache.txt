@@ -6,6 +6,7 @@ C:/Users/GreentestR04/myQtsrc/spline/widget.h
  mdp:C:/Qt/6.5.3/msvc2019_64/include/QtCharts/QChartGlobal
  mdp:C:/Qt/6.5.3/msvc2019_64/include/QtCharts/QLineSeries
  mdp:C:/Qt/6.5.3/msvc2019_64/include/QtCharts/QSplineSeries
+ mdp:C:/Qt/6.5.3/msvc2019_64/include/QtCharts/QValueAxis
  mdp:C:/Qt/6.5.3/msvc2019_64/include/QtCharts/QXYSeries
  mdp:C:/Qt/6.5.3/msvc2019_64/include/QtCharts/qabstractaxis.h
  mdp:C:/Qt/6.5.3/msvc2019_64/include/QtCharts/qabstractseries.h
@@ -14,6 +15,7 @@ C:/Users/GreentestR04/myQtsrc/spline/widget.h
  mdp:C:/Qt/6.5.3/msvc2019_64/include/QtCharts/qsplineseries.h
  mdp:C:/Qt/6.5.3/msvc2019_64/include/QtCharts/qtcharts-config.h
  mdp:C:/Qt/6.5.3/msvc2019_64/include/QtCharts/qtchartsexports.h
+ mdp:C:/Qt/6.5.3/msvc2019_64/include/QtCharts/qvalueaxis.h
  mdp:C:/Qt/6.5.3/msvc2019_64/include/QtCharts/qxyseries.h
  mdp:C:/Qt/6.5.3/msvc2019_64/include/QtCore/QList
  mdp:C:/Qt/6.5.3/msvc2019_64/include/QtCore/QObject

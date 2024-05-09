@@ -4,6 +4,7 @@ C:/Users/GreentestR04/myQtsrc/spline/build/clang-Debug/spline_autogen/EWIEGA46WW
   C:/Qt/6.5.3/msvc2019_64/include/QtCharts/QChartGlobal \
   C:/Qt/6.5.3/msvc2019_64/include/QtCharts/QLineSeries \
   C:/Qt/6.5.3/msvc2019_64/include/QtCharts/QSplineSeries \
+  C:/Qt/6.5.3/msvc2019_64/include/QtCharts/QValueAxis \
   C:/Qt/6.5.3/msvc2019_64/include/QtCharts/QXYSeries \
   C:/Qt/6.5.3/msvc2019_64/include/QtCharts/qabstractaxis.h \
   C:/Qt/6.5.3/msvc2019_64/include/QtCharts/qabstractseries.h \
@@ -12,6 +13,7 @@ C:/Users/GreentestR04/myQtsrc/spline/build/clang-Debug/spline_autogen/EWIEGA46WW
   C:/Qt/6.5.3/msvc2019_64/include/QtCharts/qsplineseries.h \
   C:/Qt/6.5.3/msvc2019_64/include/QtCharts/qtcharts-config.h \
   C:/Qt/6.5.3/msvc2019_64/include/QtCharts/qtchartsexports.h \
+  C:/Qt/6.5.3/msvc2019_64/include/QtCharts/qvalueaxis.h \
   C:/Qt/6.5.3/msvc2019_64/include/QtCharts/qxyseries.h \
   C:/Qt/6.5.3/msvc2019_64/include/QtCore/QList \
   C:/Qt/6.5.3/msvc2019_64/include/QtCore/QObject \
