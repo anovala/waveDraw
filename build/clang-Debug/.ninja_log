@@ -1,0 +1,21 @@
+# ninja log v5
+10	103	7369413313818554	spline_autogen/timestamp	9c175531e663e6e3
+1962	2074	7369413333119941	spline.exe	3c4c4aa6b6f32aee
+10	103	7369413313818554	spline_autogen/mocs_compilation.cpp	9c175531e663e6e3
+10	103	7369413313818554	C:/Users/GreentestR04/myQtsrc/spline/build/clang-Debug/spline_autogen/mocs_compilation.cpp	9c175531e663e6e3
+10	103	7369413313818554	C:/Users/GreentestR04/myQtsrc/spline/build/clang-Debug/spline_autogen/timestamp	9c175531e663e6e3
+396	2076	7369411574523305	CMakeFiles/spline.dir/spline_autogen/mocs_compilation.cpp.obj	e14465c6b60eef66
+399	2306	7369411576829173	CMakeFiles/spline.dir/main.cpp.obj	2a4be21255e4572e
+109	1961	7369413332329935	CMakeFiles/spline.dir/widget.cpp.obj	2586410fefdf7dd5
+28	130	7369413684387224	spline_autogen/timestamp	9c175531e663e6e3
+28	130	7369413684387224	spline_autogen/mocs_compilation.cpp	9c175531e663e6e3
+28	130	7369413684387224	C:/Users/GreentestR04/myQtsrc/spline/build/clang-Debug/spline_autogen/timestamp	9c175531e663e6e3
+28	130	7369413684387224	C:/Users/GreentestR04/myQtsrc/spline/build/clang-Debug/spline_autogen/mocs_compilation.cpp	9c175531e663e6e3
+138	2002	7369413703048873	CMakeFiles/spline.dir/widget.cpp.obj	2586410fefdf7dd5
+2002	2111	7369413703788877	spline.exe	3c4c4aa6b6f32aee
+22	104	7369418145768653	spline_autogen/timestamp	9c175531e663e6e3
+22	104	7369418145768653	spline_autogen/mocs_compilation.cpp	9c175531e663e6e3
+22	104	7369418145768653	C:/Users/GreentestR04/myQtsrc/spline/build/clang-Debug/spline_autogen/timestamp	9c175531e663e6e3
+22	104	7369418145768653	C:/Users/GreentestR04/myQtsrc/spline/build/clang-Debug/spline_autogen/mocs_compilation.cpp	9c175531e663e6e3
+110	1400	7369418158657939	CMakeFiles/spline.dir/widget.cpp.obj	2586410fefdf7dd5
+1400	1517	7369418159503043	spline.exe	3c4c4aa6b6f32aee
