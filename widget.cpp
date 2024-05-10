@@ -47,11 +47,6 @@ void Widget::init()
 
     m_chartView->setRenderHint(QPainter::Antialiasing); // Enable antialiasing for smooth curves
     m_chartView->repaint();
-    /*
-    QPainterPath beginPath;
-    QPainterPath loopPath;
-    QPainterPath endPath;
-    */
 
     m_xAxis = new QValueAxis(m_chart);
     m_yAxis = new QValueAxis(m_chart);
@@ -60,102 +55,36 @@ void Widget::init()
     m_yAxis->setMin(3);
     m_xAxis->setMin(0);
     m_xAxis->setMax(200);
+    m_xAxis->setTickCount(11);
+    m_xAxis->setTickCount(11);
     m_chart->addAxis(m_xAxis,Qt::AlignBottom);
     m_chart->addAxis(m_yAxis,Qt::AlignLeft);
 
     QList<QList<QPointF>> points = itemDatas();
 
     //begin
-    QLineSeries *lineSeries = new QLineSeries();
-    lineSeries->append(points.at(0));
-    lineSeries->setColor(YELLOW);
-    lineSeries->setName("Source");
-    m_chart->addSeries(lineSeries);
-    m_listLineSeries.append(lineSeries);
-    lineSeries->attachAxis(m_xAxis);
-    lineSeries->attachAxis(m_yAxis);
-    /*
-    for(auto p: points.at(0))
-        beginPath.lineTo(p);
-
-
-    //待会一个个弹出来
-    QStack<QList<QPointF>> spLinesStak;
-    for(QList<QPointF> p:m_spLines)
-        spLinesStak.push(p);
-
-
-    //添加末尾的点
-    for(auto p : points.at(points.size()-1))
-        endPath.lineTo(p);
-    */
+    addWaveSeries(LINE,YELLOW,"Soruce")->append(points.at(0));
 
     //loop
     for(int i = 1;i<points.size()-1;i++)
     {
         if(i%3 == 1) //straight line
         {
-            QLineSeries *lineSeries = new QLineSeries();
-            lineSeries->setColor(YELLOW);
-            lineSeries->setName("Source");
-            lineSeries->append(points.at(i));
-            m_chart->addSeries(lineSeries);
-            m_listLineSeries.append(lineSeries);
-            lineSeries->attachAxis(m_xAxis);
-            lineSeries->attachAxis(m_yAxis);
+            addWaveSeries(LINE,YELLOW,"Soruce")->append(points.at(i));
         }
         else if ( i%3 == 2)
         {
-            QSplineSeries *splineSeries = new QSplineSeries();
-            splineSeries->append(points.at(i));
-            splineSeries->setColor(YELLOW);
-            splineSeries->setName("Source");
-            m_chart->addSeries(splineSeries);
-            m_listSplineSeries.append(splineSeries);
-            splineSeries->attachAxis(m_xAxis);
-            splineSeries->attachAxis(m_yAxis);
-            /*
-            QList<QPointF> spPoints = spLinesStak.pop();
-
-            QPointF end,cur,control;
-            for(int i=0; i< spPoints.count()-1;i++)
-            {
-                cur = spPoints.at(i);
-                end = spPoints.at(i+1);
-                //参考sin函数的波形，
-                if(cur.y() > ua)
-                    control =  QPointF(cur.x() + 1/fa/2,cur.y()-(sin(M_PI+M_PI_2)-sin(M_PI))*ur);
-                else
-                    control = QPointF(cur.x() + 1/fa/2, cur.y()+(sin(M_PI_2)*ur));
-
-                loopPath.quadTo(control,end);
-            }
-            */
-
+            addWaveSeries(SPLINE,YELLOW,"Source")->append(points.at(i));
         } else
         {
-            QLineSeries *lineSeries = new QLineSeries();
-            lineSeries->append(points.at(i));
-            lineSeries->setColor(YELLOW);
-            lineSeries->setName("Source");
-            m_chart->addSeries(lineSeries);
-            lineSeries->attachAxis(m_xAxis);
-            lineSeries->attachAxis(m_yAxis);
-            m_listLineSeries.append(lineSeries);
+            addWaveSeries(LINE,YELLOW,"Soruce")->append(points.at(i));
         }
     }
 
     //end
-    QLineSeries *lineSeriesEnd = new QLineSeries();
-    lineSeriesEnd->append(points.at(points.size()-1));
-    lineSeriesEnd->setColor(YELLOW);
-    lineSeriesEnd->setName("Source");
-    m_chart->addSeries(lineSeriesEnd);
-    lineSeriesEnd->attachAxis(m_xAxis);
-    lineSeriesEnd->attachAxis(m_yAxis);
+    addWaveSeries(LINE,YELLOW,"Soruce")->append(points.at(points.size()-1));
 
-    m_listLineSeries.append(lineSeriesEnd);    //end
-
+    rTimeAddProcessSeries();
      // Customize the m_chart
     m_chart->setTitle("QSplineSeries Example");
 
@@ -191,35 +120,51 @@ void Widget::resetIter()
     m_currentPointIndex = 0;
 }
 
-void Widget::addProcessSeries(lineType type)
+QXYSeries* Widget::addWaveSeries(lineType type ,QColor color,QString SeriesName,bool b)
 {
     if(type == LINE)
     {
         QLineSeries *lineSeries;
         lineSeries = new QLineSeries;
-        lineSeries->setColor(RED);
-        lineSeries->setName("run");
+        lineSeries->setColor(color);
+        lineSeries->setName(SeriesName);
         m_chart->addSeries(lineSeries);
         lineSeries->attachAxis(m_xAxis);
         lineSeries->attachAxis(m_yAxis);
-        m_processSeries.append(lineSeries);
+        if(b)
+            m_processSeries.append(lineSeries);
+        return lineSeries;
     }else{
         QSplineSeries *spSeries;
         spSeries = new QSplineSeries;
-        spSeries->setColor(RED);
-        spSeries->setName("run");
+        spSeries->setColor(color);
+        spSeries->setName(SeriesName);
         m_chart->addSeries(spSeries);
         spSeries->attachAxis(m_xAxis);
         spSeries->attachAxis(m_yAxis);
-        m_processSeries.append(spSeries);
+        if(b)
+            m_processSeries.append(spSeries);
+        return spSeries;
     }
+}
+
+void Widget::addProcessTempSeries(lineType type)
+{
+    m_tempProcessSeries.append(type);
+}
+
+void Widget::rTimeAddProcessSeries()
+{
+    for(lineType type : m_tempProcessSeries)
+        addWaveSeries(type,RED,"Run",true);
 }
 
 //每次画一个点
 void Widget::onTimeOut()
 {
-    static int count;
-    qDebug()<<"call "<<count++<<" times";
+    //static int count;
+    //qDebug()<<"call "<<count++<<" times";
+
     if(m_currentLineIter == m_processPoints.end())
     {
         m_timer.stop();
@@ -298,8 +243,7 @@ QList<QList<QPointF>> Widget::itemDatas()
     allPoints.append(beginPoints);
     m_processPoints.append(std::make_pair(LINE,beginPoints));
 
-    addProcessSeries(LINE);
-
+    addProcessTempSeries(LINE);
         //cycles
     for(int i= 0; i<n;i++){
 
@@ -348,11 +292,11 @@ QList<QList<QPointF>> Widget::itemDatas()
         allPoints.append(spPoints);
         allPoints.append(linePoints2);
         m_processPoints.append(std::make_pair(LINE,linePoints1));
-        addProcessSeries(LINE);
+        addProcessTempSeries(LINE);
         m_processPoints.append(std::make_pair(SPLINE,spPoints));
-        addProcessSeries(SPLINE);
+        addProcessTempSeries(SPLINE);
         m_processPoints.append(std::make_pair(LINE,linePoints2));
-        addProcessSeries(LINE);
+        addProcessTempSeries(LINE);
 
         /*
         m_spLines.append(spPoints);
@@ -363,7 +307,7 @@ QList<QList<QPointF>> Widget::itemDatas()
     QList<QPointF> endPoints ={QPointF(t += tend,uop)};
     allPoints.append(endPoints);
     m_processPoints.append(std::make_pair(LINE,endPoints));
-    addProcessSeries(LINE);
+    addProcessTempSeries(LINE);
     for(auto _list : allPoints)
         m_pointSize += _list.size();
 

@@ -63,9 +63,6 @@ private:
     QChart *m_chart;
     QChartView *m_chartView;
     // for show
-    QList<QLineSeries*> m_listLineSeries;
-    QList<QSplineSeries*> m_listSplineSeries;
-
     double m_time;
     int m_pointSize;
     QPainterPath m_path;
@@ -81,12 +78,17 @@ private:
     //var for draw process
     QList<std::pair<lineType,QList<QPointF>>>::Iterator m_currentLineIter;
     QList<std::pair<lineType,QList<QPointF>>> m_processPoints;
+    QList<lineType> m_tempProcessSeries;
     int m_currentPointIndex;
     QTimer m_timer;
     QList<QXYSeries*> m_processSeries;
 
     void resetIter();
-    void addProcessSeries(lineType type);
+    QXYSeries* addWaveSeries(lineType type , QColor color, QString,bool bProcess = false);
+
+    //在添加完黄线后，再添加红线，先创建个temp记录
+    void addProcessTempSeries(lineType type);
+    void rTimeAddProcessSeries();
 
 private slots:
     void onTimeOut();
