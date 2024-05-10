@@ -57,10 +57,6 @@ private:
     QList<QList<QPointF>> itemDatas();
     void init();
     void configTimer();
-/*
-protected:
-    void paintEvent(QPaintEvent *e) override;
-*/
 
 private:
 
@@ -90,6 +86,7 @@ private:
     QList<QXYSeries*> m_processSeries;
 
     void resetIter();
+    void addProcessSeries(lineType type);
 
 private slots:
     void onTimeOut();
