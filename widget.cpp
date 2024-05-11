@@ -6,7 +6,6 @@
 #include <QVBoxLayout>
 #include <QLegendMarker>
 #include <QStack>
-#include <math.h>
 
 #define YELLOW QColor(255,255,0)
 #define GREEN QColor(0,255,0)
@@ -24,7 +23,7 @@ Widget::Widget(QWidget *parent)
     init();
     resetIter();
     configTimer();
-    hideLegendMaker();
+    configLegendMaker();
 }
 
 Widget::~Widget()
@@ -32,9 +31,17 @@ Widget::~Widget()
     delete ui;
 }
 
-void Widget::hideLegendMaker()
+void Widget::configLegendMaker()
 {
-    m_chart->legend()->setVisible(false);
+    for(auto *pLegendMaker:m_chart->legend()->markers())
+    {
+        if(pLegendMaker->series() == m_processSeries.at(0)\
+            || pLegendMaker->series() == m_staticSeries.at(0))
+            pLegendMaker->setVisible(true);
+        else
+            pLegendMaker->setVisible(false);
+    }
+
 }
 
 void Widget::init()
@@ -48,6 +55,7 @@ void Widget::init()
     m_chartView->setRenderHint(QPainter::Antialiasing); // Enable antialiasing for smooth curves
     m_chartView->repaint();
 
+    //axis setting
     m_xAxis = new QValueAxis(m_chart);
     m_yAxis = new QValueAxis(m_chart);
 
@@ -133,6 +141,8 @@ QXYSeries* Widget::addWaveSeries(lineType type ,QColor color,QString SeriesName,
         lineSeries->attachAxis(m_yAxis);
         if(b)
             m_processSeries.append(lineSeries);
+        else
+            m_staticSeries.append(lineSeries);
         return lineSeries;
     }else{
         QSplineSeries *spSeries;
@@ -144,19 +154,16 @@ QXYSeries* Widget::addWaveSeries(lineType type ,QColor color,QString SeriesName,
         spSeries->attachAxis(m_yAxis);
         if(b)
             m_processSeries.append(spSeries);
+        else
+            m_staticSeries.append(spSeries);
         return spSeries;
     }
 }
 
-void Widget::addProcessTempSeries(lineType type)
-{
-    m_tempProcessSeries.append(type);
-}
-
 void Widget::rTimeAddProcessSeries()
 {
-    for(lineType type : m_tempProcessSeries)
-        addWaveSeries(type,RED,"Run",true);
+    for(auto&& [type, ponits] : m_processPoints)
+        addWaveSeries(type,GREEN,"Run",true);
 }
 
 //每次画一个点
@@ -195,6 +202,7 @@ void Widget::onTimeOut()
         m_currentPointIndex++;
     }
 
+    //next line
     if(m_currentPointIndex >= points.size())
     {
         m_currentPointIndex = 0;
@@ -243,7 +251,6 @@ QList<QList<QPointF>> Widget::itemDatas()
     allPoints.append(beginPoints);
     m_processPoints.append(std::make_pair(LINE,beginPoints));
 
-    addProcessTempSeries(LINE);
         //cycles
     for(int i= 0; i<n;i++){
 
@@ -257,16 +264,6 @@ QList<QList<QPointF>> Widget::itemDatas()
         linePoints1.emplaceBack(QPointF(t += t5, us));
         linePoints1.emplaceBack(QPointF(t += t6, us));
         linePoints1.emplaceBack(QPointF(t += t7,ua));
-
-        // 余弦线
-        /*
-        double x = t + 0.01;
-        while(x < t + t8)
-        {
-            m_spPoints.emplace_back(x, sin((2 * M_PI * fa * x + M_PI)) + ur + 1);
-            x += (1/fa);
-        }
-        */
 
         // x y axis for spline
         double x = t;
@@ -292,11 +289,8 @@ QList<QList<QPointF>> Widget::itemDatas()
         allPoints.append(spPoints);
         allPoints.append(linePoints2);
         m_processPoints.append(std::make_pair(LINE,linePoints1));
-        addProcessTempSeries(LINE);
         m_processPoints.append(std::make_pair(SPLINE,spPoints));
-        addProcessTempSeries(SPLINE);
         m_processPoints.append(std::make_pair(LINE,linePoints2));
-        addProcessTempSeries(LINE);
 
         /*
         m_spLines.append(spPoints);
@@ -307,7 +301,6 @@ QList<QList<QPointF>> Widget::itemDatas()
     QList<QPointF> endPoints ={QPointF(t += tend,uop)};
     allPoints.append(endPoints);
     m_processPoints.append(std::make_pair(LINE,endPoints));
-    addProcessTempSeries(LINE);
     for(auto _list : allPoints)
         m_pointSize += _list.size();
 

@@ -52,7 +52,7 @@ public:
     Widget(QWidget *parent = nullptr);
     ~Widget();
 
-    void hideLegendMaker();
+    void configLegendMaker();
 private:
     QList<QList<QPointF>> itemDatas();
     void init();
@@ -65,29 +65,27 @@ private:
     // for show
     double m_time;
     int m_pointSize;
-    QPainterPath m_path;
     QValueAxis *m_xAxis;
     QValueAxis *m_yAxis;
 
-    //helper member
-    //QList<QList<QPointF>> m_spLines;
+    //helper memberi
     double ua;
     double ur;
     double fa;
 
     //var for draw process
     QList<std::pair<lineType,QList<QPointF>>>::Iterator m_currentLineIter;
-    QList<std::pair<lineType,QList<QPointF>>> m_processPoints;
-    QList<lineType> m_tempProcessSeries;
+    QList<std::pair<lineType,QList<QPointF>>> m_processPoints ; // all points
     int m_currentPointIndex;
     QTimer m_timer;
+    //红线线段
     QList<QXYSeries*> m_processSeries;
-
+    //黄线线段
+    QList<QXYSeries*> m_staticSeries;
     void resetIter();
     QXYSeries* addWaveSeries(lineType type , QColor color, QString,bool bProcess = false);
 
     //在添加完黄线后，再添加红线，先创建个temp记录
-    void addProcessTempSeries(lineType type);
     void rTimeAddProcessSeries();
 
 private slots:
